@@ -1,0 +1,7 @@
+<h2>Detalle del Cliente</h2>
+<div *ngIf="cliente">
+    <p>Nombre: {{ cliente.nombre }}</p>
+    <p>Placa Vehículo: {{ cliente.placaVehiculo }}</p>
+    <p>Color Vehículo: {{ cliente.colorVehiculo }}</p>
+    <button (click)="deleteCliente()">Eliminar</button>
+</div>
