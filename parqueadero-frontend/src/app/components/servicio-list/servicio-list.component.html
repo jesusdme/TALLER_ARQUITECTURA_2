@@ -8,9 +8,6 @@
         <p><strong>Acción:</strong> {{ servicio.accion }}</p>
         <p><strong>Cobro:</strong> {{ servicio.cobro | currency }}</p>
       </div>
-      <div class="service-actions">
-        <a [routerLink]="['/servicios/edit', servicio.id]" class="btn btn-edit">Editar</a>
-      </div>
     </li>
   </ul>
 </div>
