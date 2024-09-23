@@ -1,14 +1,10 @@
-<div>
-    <a routerLink="/clientes">Ver lista de clientes</a>
-</div>
-<div>
-    <a routerLink="/clientes/new">Ingresar Nuevo Cliente al Parqueadero</a>
-</div>
-<div>
-    <a routerLink="/servicios">Ver lista de Registros</a>
+<div class="navbar">
+  <a routerLink="/clientes">Ver lista de clientes</a>
+  <a routerLink="/clientes/new">Ingresar Nuevo Cliente al Parqueadero</a>
+  <a routerLink="/servicios">Ver lista de Registros</a>
 </div>
 
-
-<router-outlet>
-
-</router-outlet>
+<div class="container">
+  <!-- Aquí se cargarán los componentes según las rutas -->
+  <router-outlet></router-outlet>
+</div>

@@ -1,18 +1,24 @@
-<h2>{{ isEditMode ? 'Editar Cliente' : 'Crear Cliente' }}</h2>
+<div class="form-container">
+  <h2>Crear Cliente</h2>
 
-<form (ngSubmit)="onSubmit()" #clienteForm="ngForm">
-    <div>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" [(ngModel)]="cliente.nombre" name="nombre" required />
-    </div>
-    <div>
-        <label for="placaVehiculo">Placa Vehículo:</label>
-        <input type="text" id="placaVehiculo" [(ngModel)]="cliente.placaVehiculo" name="placaVehiculo" required />
-    </div>
-    <div>
-        <label for="colorVehiculo">Color Vehículo:</label>
-        <input type="text" id="colorVehiculo" [(ngModel)]="cliente.colorVehiculo" name="colorVehiculo" required />
+  <form (ngSubmit)="onSubmit()" #clienteForm="ngForm">
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required>
     </div>
 
-    <button type="submit">{{ isEditMode ? 'Actualizar' : 'Crear' }}</button>
-</form>
+    <div class="form-group">
+      <label for="placaVehiculo">Placa Vehículo:</label>
+      <input id="placaVehiculo" type="text" class="form-control" [(ngModel)]="cliente.placaVehiculo" name="placaVehiculo" required>
+    </div>
+
+    <div class="form-group">
+      <label for="colorVehiculo">Color Vehículo:</label>
+      <input id="colorVehiculo" type="text" class="form-control" [(ngModel)]="cliente.colorVehiculo" name="colorVehiculo" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear</button>
+  </form>
+</div>
+
+

@@ -1,16 +1,15 @@
 <h2>Lista de Clientes</h2>
 
-
-<ul>
-    <li *ngFor="let cliente of clientes">
-        {{ cliente.nombre }} - {{ cliente.placaVehiculo }} - {{ cliente.colorVehiculo }}
-        <div>
-            <a [routerLink]="['/clientes/edit', cliente.id]">Editar</a>
-
-        </div>
-        <div>
-            <a [routerLink]="['/clientes', cliente.id]">Ver detalles</a>
-
-        </div>
+<div class="client-list-container">
+  <ul>
+    <li *ngFor="let cliente of clientes" class="client-item">
+      <div class="client-info">
+        <strong>{{ cliente.nombre }}</strong> - {{ cliente.placaVehiculo }} - {{ cliente.colorVehiculo }}
+      </div>
+      <div class="client-actions">
+        <a [routerLink]="['/clientes/edit', cliente.id]">Editar</a>
+        <a [routerLink]="['/clientes', cliente.id]">Ver detalles</a>
+      </div>
     </li>
-</ul>
+  </ul>
+</div>

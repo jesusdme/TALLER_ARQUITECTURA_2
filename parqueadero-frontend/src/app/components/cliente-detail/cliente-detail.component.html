@@ -1,9 +1,9 @@
-<h2>Detalle del Cliente</h2>
-<div *ngIf="cliente">
-    <p>Nombre: {{ cliente.nombre }}</p>
-    <p>Placa Vehículo: {{ cliente.placaVehiculo }}</p>
-    <p>Color Vehículo: {{ cliente.colorVehiculo }}</p>
-    <p>Hora de Ingreso: {{ cliente.horaIngreso ? (cliente.horaIngreso | date:'short') : 'No disponible' }}</p>
+<h2 class="detail-title">Detalle del Cliente</h2>
+<div *ngIf="cliente" class="detail-container">
+  <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+  <p><strong>Placa Vehículo:</strong> {{ cliente.placaVehiculo }}</p>
+  <p><strong>Color Vehículo:</strong> {{ cliente.colorVehiculo }}</p>
+  <p><strong>Hora de Ingreso:</strong> {{ cliente.horaIngreso ? (cliente.horaIngreso | date:'short') : 'No disponible' }}</p>
 
-    <button (click)="deleteCliente()">Eliminar</button>
+  <button class="btn btn-danger" (click)="deleteCliente()">Eliminar</button>
 </div>
