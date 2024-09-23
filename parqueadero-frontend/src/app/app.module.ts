@@ -8,6 +8,7 @@ import { ClienteDetailComponent } from './components/cliente-detail/cliente-deta
 import { ClienteListComponent } from './components/cliente-list/cliente-list.component';
 import { ClienteFormComponent } from './components/cliente-form/cliente-form.component';
 import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
+import { ParqueaderoDetailComponent } from './components/parqueadero-detail/parqueadero-detail.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ServicioListComponent } from './components/servicio-list/servicio-list.
     ClienteListComponent,
     ClienteDetailComponent,
     ClienteFormComponent,
-    ServicioListComponent
+    ServicioListComponent,
+    ParqueaderoDetailComponent,
   ],
   imports: [
     BrowserModule,

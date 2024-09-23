@@ -31,7 +31,7 @@ public class DBInitializer implements CommandLineRunner {
         if (parqueaderoRepository.count() == 0) {
             // Crear un parqueadero de prueba
             Parqueadero parqueadero = new Parqueadero();
-            parqueadero.setEspacio(50);  // Espacios disponibles
+            parqueadero.setEspacio(48);  // Espacios disponibles
             parqueadero.setGanancias(0.0);  // Ganancias iniciales
             parqueaderoRepository.save(parqueadero);
 

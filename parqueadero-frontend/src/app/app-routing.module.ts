@@ -4,15 +4,17 @@ import { ClienteDetailComponent } from './components/cliente-detail/cliente-deta
 import { ClienteFormComponent } from './components/cliente-form/cliente-form.component';
 import { ClienteListComponent } from './components/cliente-list/cliente-list.component';
 import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
+import {ParqueaderoDetailComponent} from "./components/parqueadero-detail/parqueadero-detail.component";
 
 const routes: Routes = [
-  { path: 'clientes', component: ClienteListComponent },       // Lista de clientes
-  { path: 'clientes/new', component: ClienteFormComponent },    // Crear cliente
-  { path: 'clientes/edit/:id', component: ClienteFormComponent }, // Editar cliente
-  { path: 'clientes/:id', component: ClienteDetailComponent },  // Detalle del cliente
-  { path: '', redirectTo: '/clientes', pathMatch: 'full' },      // Redirigir a /clientes por defecto
-  // Rutas de Servicio
-  { path: 'servicios', component: ServicioListComponent },      // Lista de servicios
+  { path: 'clientes', component: ClienteListComponent },
+  { path: 'clientes/new', component: ClienteFormComponent },
+  { path: 'clientes/edit/:id', component: ClienteFormComponent },
+  { path: 'clientes/:id', component: ClienteDetailComponent },
+  { path: 'servicios', component: ServicioListComponent },
+  { path: 'parqueadero', component: ParqueaderoDetailComponent }, // Nueva ruta para la información del parqueadero
+  { path: '', redirectTo: '/clientes', pathMatch: 'full' },
+  { path: '**', redirectTo: '/clientes' }
 ];
 
 @NgModule({

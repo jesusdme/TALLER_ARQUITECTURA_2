@@ -9,14 +9,23 @@ import { ServicioService } from '../../services/servicio.service';
 })
 export class ServicioListComponent implements OnInit {
   servicios: Servicio[] = [];
+  gananciasTotales: number = 0;
+  puestosDisponibles: number = 0;
 
   constructor(private servicioService: ServicioService) {}
 
   async ngOnInit(): Promise<void> {
     try {
+      // Obtener la lista de servicios
       this.servicios = await this.servicioService.getServicios();
+
+      // Obtener las ganancias totales del parqueadero
+      this.gananciasTotales = await this.servicioService.getGananciasTotales();
+
+      // Obtener los puestos disponibles
+      this.puestosDisponibles = await this.servicioService.getPuestosDisponibles();
     } catch (error) {
-      console.error('Error al cargar los servicios:', error);
+      console.error('Error al cargar los servicios o información adicional:', error);
     }
   }
 
