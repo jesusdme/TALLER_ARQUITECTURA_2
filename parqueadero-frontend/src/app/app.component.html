@@ -2,12 +2,13 @@
   <a routerLink="/clientes">Ver lista de clientes</a>
   <a routerLink="/clientes/new">Ingresar nuevo cliente</a>
   <a routerLink="/servicios">Ver lista de servicios</a>
-  <a routerLink="/parqueadero">Ver lista de servicios</a>
-
-
 </div>
 
 <div class="container">
+  <h2>Estado del Parqueadero</h2>
+  <p><strong>Puestos disponibles:</strong> {{ puestosDisponibles }}</p>
+  <p><strong>Ganancias totales:</strong> {{ gananciasTotales | currency }}</p>
+
   <!-- Aquí se cargarán los componentes según las rutas -->
   <router-outlet></router-outlet>
 </div>

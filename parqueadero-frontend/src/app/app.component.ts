@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicioService } from './services/servicio.service';
+import { EventEmitterService } from './services/EventEmitterService';
+import { ParqueaderoService } from './services/ParqueaderoService';
+
 
 @Component({
   selector: 'app-root',
@@ -10,17 +12,32 @@ export class AppComponent implements OnInit {
   gananciasTotales: number = 0;
   puestosDisponibles: number = 0;
 
-  constructor(private servicioService: ServicioService) {}
+  constructor(
+    private parqueaderoService: ParqueaderoService,
+    private eventEmitterService: EventEmitterService  // Inyectar el servicio de eventos
+  ) {}
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
+    this.loadParqueaderoData();
+
+    // Escuchar el evento para actualizar los datos del parqueadero
+    this.eventEmitterService.updateParqueadero$.subscribe(() => {
+      this.loadParqueaderoData();
+    });
+  }
+
+  async loadParqueaderoData(): Promise<void> {
     try {
-      // Obtener las ganancias totales
-      this.gananciasTotales = await this.servicioService.getGananciasTotales();
+      const parqueadero = await this.parqueaderoService.getParqueadero().toPromise();
 
-      // Obtener los puestos disponibles
-      this.puestosDisponibles = await this.servicioService.getPuestosDisponibles();
+      if (parqueadero) {
+        this.gananciasTotales = parqueadero.ganancias;
+        this.puestosDisponibles = parqueadero.espacio;
+      } else {
+        console.error('El parqueadero no está disponible.');
+      }
     } catch (error) {
-      console.error('Error al cargar las ganancias o los puestos disponibles:', error);
+      console.error('Error al cargar los datos del parqueadero:', error);
     }
   }
 }

@@ -5,10 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ClienteDetailComponent } from './components/cliente-detail/cliente-detail.component';
-import { ClienteListComponent } from './components/cliente-list/cliente-list.component';
 import { ClienteFormComponent } from './components/cliente-form/cliente-form.component';
+import { ClienteListComponent } from './components/cliente-list/cliente-list.component';
 import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
-import { ParqueaderoDetailComponent } from './components/parqueadero-detail/parqueadero-detail.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { ParqueaderoDetailComponent } from './components/parqueadero-detail/parq
     ClienteDetailComponent,
     ClienteFormComponent,
     ServicioListComponent,
-    ParqueaderoDetailComponent,
   ],
   imports: [
     BrowserModule,

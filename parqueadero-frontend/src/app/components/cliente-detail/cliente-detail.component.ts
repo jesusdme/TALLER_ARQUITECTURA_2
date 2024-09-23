@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EventEmitterService } from 'src/app/services/EventEmitterService';
 import { Cliente } from '../../models/cliente';
 import { ClienteService } from '../../services/cliente.service';
 
@@ -14,7 +15,8 @@ export class ClienteDetailComponent implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private eventEmitterService: EventEmitterService  // Inyectar el servicio de eventos
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -32,7 +34,12 @@ export class ClienteDetailComponent implements OnInit {
     if (this.cliente?.id) {
       try {
         await this.clienteService.deleteCliente(this.cliente.id);
-        this.router.navigate(['/clientes']);  // Redirige a la lista de clientes después de eliminar
+
+        // Emitir el evento para actualizar el parqueadero
+        this.eventEmitterService.emitUpdateParqueadero();
+
+        // Redirigir a la lista de clientes después de eliminar
+        this.router.navigate(['/clientes']);
       } catch (error) {
         console.error('Error al eliminar el cliente:', error);
       }
