@@ -1,38 +1,41 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import axios from 'axios';
 import { Servicio } from '../models/servicio';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ServicioService {
-    private apiUrl = 'http://localhost:8080/api/servicios';  // Asegúrate de que coincida con el backend
+    private apiUrl = 'http://localhost:8080/api/servicios';
 
-    constructor(private http: HttpClient) { }
+    constructor() { }
 
     // Obtener todos los servicios
-    getServicios(): Observable<Servicio[]> {
-        return this.http.get<Servicio[]>(this.apiUrl);
-    }
-
-    // Obtener un servicio por ID
-    getServicioById(id: string): Observable<Servicio> {
-        return this.http.get<Servicio>(`${this.apiUrl}/${id}`);
+    async getServicios(): Promise<Servicio[]> {
+        const response = await axios.get<Servicio[]>(this.apiUrl);
+        return response.data;
     }
 
     // Crear un nuevo servicio
-    createServicio(servicio: Servicio): Observable<Servicio> {
-        return this.http.post<Servicio>(this.apiUrl, servicio);
+    async createServicio(servicio: Servicio): Promise<Servicio> {
+        const response = await axios.post<Servicio>(this.apiUrl, servicio);
+        return response.data;
+    }
+
+    // Obtener un servicio por ID
+    async getServicioById(id: string): Promise<Servicio> {
+        const response = await axios.get<Servicio>(`${this.apiUrl}/${id}`);
+        return response.data;
     }
 
     // Actualizar un servicio existente
-    updateServicio(id: string, servicio: Servicio): Observable<Servicio> {
-        return this.http.put<Servicio>(`${this.apiUrl}/${id}`, servicio);
+    async updateServicio(id: string, servicio: Servicio): Promise<Servicio> {
+        const response = await axios.put<Servicio>(`${this.apiUrl}/${id}`, servicio);
+        return response.data;
     }
 
-    // Eliminar un servicio por ID
-    deleteServicio(id: string): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    // Eliminar un servicio
+    async deleteServicio(id: string): Promise<void> {
+        await axios.delete(`${this.apiUrl}/${id}`);
     }
 }

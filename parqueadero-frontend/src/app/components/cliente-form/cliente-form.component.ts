@@ -23,27 +23,30 @@ export class ClienteFormComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEditMode = true;
-      this.clienteService.getClienteById(id).subscribe(cliente => {
-        this.cliente = cliente;
-      });
+      try {
+        this.cliente = await this.clienteService.getClienteById(id);
+      } catch (error) {
+        console.error('Error al obtener el cliente:', error);
+      }
     }
   }
 
-  onSubmit(): void {
-    if (this.isEditMode) {
-      // Actualizar cliente
-      this.clienteService.updateCliente(this.cliente.id!, this.cliente).subscribe(() => {
-        this.router.navigate(['/clientes']);
-      });
-    } else {
-      // Crear nuevo cliente
-      this.clienteService.createCliente(this.cliente).subscribe(() => {
-        this.router.navigate(['/clientes']);
-      });
+  async onSubmit(): Promise<void> {
+    try {
+      if (this.isEditMode) {
+        // Actualizar cliente
+        await this.clienteService.updateCliente(this.cliente.id!, this.cliente);
+      } else {
+        // Crear nuevo cliente
+        await this.clienteService.createCliente(this.cliente);
+      }
+      this.router.navigate(['/clientes']);
+    } catch (error) {
+      console.error('Error al guardar el cliente:', error);
     }
   }
 }

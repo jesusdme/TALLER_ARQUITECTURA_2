@@ -23,27 +23,30 @@ export class ServicioFormComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.isEditMode = true;
-      this.servicioService.getServicioById(id).subscribe(servicio => {
-        this.servicio = servicio;
-      });
+      try {
+        this.servicio = await this.servicioService.getServicioById(id);
+      } catch (error) {
+        console.error('Error al obtener el servicio:', error);
+      }
     }
   }
 
-  onSubmit(): void {
-    if (this.isEditMode) {
-      // Actualizar servicio
-      this.servicioService.updateServicio(this.servicio.id!, this.servicio).subscribe(() => {
-        this.router.navigate(['/servicios']);
-      });
-    } else {
-      // Crear nuevo servicio
-      this.servicioService.createServicio(this.servicio).subscribe(() => {
-        this.router.navigate(['/servicios']);
-      });
+  async onSubmit(): Promise<void> {
+    try {
+      if (this.isEditMode) {
+        // Actualizar servicio
+        await this.servicioService.updateServicio(this.servicio.id!, this.servicio);
+      } else {
+        // Crear nuevo servicio
+        await this.servicioService.createServicio(this.servicio);
+      }
+      this.router.navigate(['/servicios']);
+    } catch (error) {
+      console.error('Error al guardar el servicio:', error);
     }
   }
 }

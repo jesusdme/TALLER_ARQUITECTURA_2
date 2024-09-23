@@ -12,9 +12,11 @@ export class ClienteListComponent implements OnInit {
 
   constructor(private clienteService: ClienteService) {}
 
-  ngOnInit(): void {
-    this.clienteService.getClientes().subscribe(data => {
-      this.clientes = data;
-    });
+  async ngOnInit(): Promise<void> {
+    try {
+      this.clientes = await this.clienteService.getClientes();
+    } catch (error) {
+      console.error('Error al obtener los clientes:', error);
+    }
   }
 }

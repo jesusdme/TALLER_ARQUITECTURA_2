@@ -1,7 +1,6 @@
 package com.example.parqueadero.service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -84,7 +83,7 @@ public class ClienteService {
                 System.out.println(167 * duration.toMinutes());
 
                 servicio.setCobro(
-                        new BigDecimal(167 * duration.toMinutes()).setScale(2, RoundingMode.HALF_UP).doubleValue());
+                        new BigDecimal(167 * duration.toMinutes()).doubleValue());
 
                 servicioRepository.save(servicio);
             }

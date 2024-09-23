@@ -17,20 +17,25 @@ export class ClienteDetailComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.clienteService.getClienteById(id).subscribe(cliente => {
-        this.cliente = cliente;
-      });
+      try {
+        this.cliente = await this.clienteService.getClienteById(id);
+      } catch (error) {
+        console.error('Error al obtener el cliente:', error);
+      }
     }
   }
 
-  deleteCliente(): void {
+  async deleteCliente(): Promise<void> {
     if (this.cliente?.id) {
-      this.clienteService.deleteCliente(this.cliente.id).subscribe(() => {
+      try {
+        await this.clienteService.deleteCliente(this.cliente.id);
         this.router.navigate(['/clientes']);  // Redirige a la lista de clientes después de eliminar
-      });
+      } catch (error) {
+        console.error('Error al eliminar el cliente:', error);
+      }
     }
   }
 }
