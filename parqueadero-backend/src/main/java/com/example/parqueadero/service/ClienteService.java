@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.parqueadero.model.Cliente;
+import com.example.parqueadero.model.Parqueadero;
 import com.example.parqueadero.model.Servicio;
 import com.example.parqueadero.repository.ClienteRepository;
+import com.example.parqueadero.repository.ParqueaderoRepository;
 import com.example.parqueadero.repository.ServicioRepository;
 
 @Service
@@ -21,6 +23,9 @@ public class ClienteService {
 
     @Autowired
     private ServicioRepository servicioRepository;
+
+    @Autowired
+    private ParqueaderoRepository parqueaderoRepository;
 
     // Obtener todos los clientes
     public List<Cliente> obtenerClientes() {
@@ -34,19 +39,30 @@ public class ClienteService {
 
     // Guardar un cliente (Entrada al parqueadero)
     public Cliente guardarCliente(Cliente cliente) {
-        // Establecer la hora de ingreso
-        cliente.setHoraIngreso(LocalDateTime.now());
-        Cliente clienteGuardado = clienteRepository.save(cliente);
+        // Verificar si hay espacio disponible en el parqueadero
+        Parqueadero parqueadero = parqueaderoRepository.findAll().get(0); // Asumimos un solo parqueadero
+        if (parqueadero.getEspacio() > 0) {
+            // Reducir el espacio disponible
+            parqueadero.setEspacio(parqueadero.getEspacio() - 1);
+            parqueaderoRepository.save(parqueadero);
 
-        // Crear un registro de servicio con la acción "Entrada"
-        Servicio servicio = new Servicio();
-        servicio.setClienteId(clienteGuardado.getId());
-        servicio.setHora(LocalDateTime.now());
-        servicio.setAccion("Entrada");
-        servicio.setCobro(0.0); // Inicialmente sin cobro
-        servicioRepository.save(servicio);
+            // Establecer la hora de ingreso
+            cliente.setHoraIngreso(LocalDateTime.now());
+            Cliente clienteGuardado = clienteRepository.save(cliente);
 
-        return clienteGuardado;
+            // Crear un registro de servicio con la acción "Entrada"
+            Servicio servicio = new Servicio();
+            servicio.setClienteId(clienteGuardado.getId());
+            servicio.setHora(LocalDateTime.now());
+            servicio.setAccion("Entrada");
+            servicio.setCobro(0.0); // Inicialmente sin cobro
+            servicioRepository.save(servicio);
+
+            return clienteGuardado;
+        } else {
+            // Si no hay espacio, no se guarda el cliente
+            throw new RuntimeException("No hay espacio disponible en el parqueadero");
+        }
     }
 
     // Actualizar un cliente existente
@@ -68,30 +84,34 @@ public class ClienteService {
         if (clienteRepository.existsById(id)) {
             Cliente cliente = clienteRepository.findById(id).orElse(null);
 
-            // Crear un registro de servicio con la acción "Salida" antes de eliminar al
-            // cliente
+            // Crear un registro de servicio con la acción "Salida" antes de eliminar al cliente
             if (cliente != null) {
                 Servicio servicio = new Servicio();
                 servicio.setClienteId(cliente.getId());
                 servicio.setHora(LocalDateTime.now());
                 servicio.setAccion("Salida");
 
+                // Calcular la duración de la estancia
                 Duration duration = Duration.between(cliente.getHoraIngreso(), LocalDateTime.now());
-                System.out.println("duracion   "+ duration);
-                System.out.println("duracion  minutos "+  duration.toMinutes());
+                double cobro = new BigDecimal(167 * duration.toMinutes()).doubleValue();
+                servicio.setCobro(cobro);
 
-                System.out.println(167 * duration.toMinutes());
-
-                servicio.setCobro(
-                        new BigDecimal(167 * duration.toMinutes()).doubleValue());
-
+                // Guardar el servicio en la base de datos
                 servicioRepository.save(servicio);
+
+                // Obtener el parqueadero y sumar el cobro a las ganancias
+                Parqueadero parqueadero = parqueaderoRepository.findAll().get(0); // Asumimos un solo parqueadero
+                parqueadero.setEspacio(parqueadero.getEspacio() + 1);
+                parqueadero.setGanancias(parqueadero.getGanancias() + cobro);
+                parqueaderoRepository.save(parqueadero);
             }
 
+            // Eliminar el cliente
             clienteRepository.deleteById(id);
             return true;
         } else {
             return false;
         }
     }
+
 }

@@ -18,19 +18,3 @@ public class Cliente {
     private LocalDateTime horaIngreso;
 
 }
-
-
-
-
-
-    /*public void setHoraIngreso() {
-        this.horaIngreso = LocalDateTime.now();  // Inicializa con la fecha y hora actuales
-    }*/
-
-
-    /*
-    Duration duration = Duration.between(horaIngreso, LocalDateTime.now());
-        double minutos = duration.toMinutes();
-     *         this.cobro = new BigDecimal(167* this.minutos).setScale(2, RoundingMode.HALF_UP).doubleValue();
-
-     */
