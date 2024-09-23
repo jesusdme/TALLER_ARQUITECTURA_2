@@ -1,8 +1,11 @@
 package com.example.parqueadero.model;
 
-import lombok.Data;
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
 
 @Data
 @Document(collection = "servicios")
@@ -10,7 +13,8 @@ public class Servicio {
     @Id
     private String id;
     private String clienteId;
-    private String horaEntrada;
-    private String horaSalida;
-    private String espacioAsignado;
+    private LocalDateTime hora;
+    private String accion;
+    private double cobro;
+
 }

@@ -26,6 +26,7 @@ public class ServicioService {
 
     // Guardar un servicio
     public Servicio guardarServicio(Servicio servicio) {
+        // Aquí puedes agregar cualquier lógica para inicializar otros campos si es necesario
         return servicioRepository.save(servicio);
     }
 
@@ -34,9 +35,9 @@ public class ServicioService {
         Servicio servicio = servicioRepository.findById(id).orElse(null);
         if (servicio != null) {
             servicio.setClienteId(detallesServicio.getClienteId());
-            servicio.setHoraEntrada(detallesServicio.getHoraEntrada());
-            servicio.setHoraSalida(detallesServicio.getHoraSalida());
-            servicio.setEspacioAsignado(detallesServicio.getEspacioAsignado());
+            servicio.setHora(detallesServicio.getHora());
+            servicio.setAccion(detallesServicio.getAccion());
+            servicio.setCobro(detallesServicio.getCobro());
             return servicioRepository.save(servicio);
         } else {
             return null;

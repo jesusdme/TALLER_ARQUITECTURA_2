@@ -7,13 +7,17 @@ import { AppComponent } from './app.component';
 import { ClienteDetailComponent } from './components/cliente-detail/cliente-detail.component';
 import { ClienteListComponent } from './components/cliente-list/cliente-list.component';
 import { ClienteFormComponent } from './components/cliente-form/cliente-form.component';
+import { ServicioListComponent } from './components/servicio-list/servicio-list.component';
+import { ServicioFormComponent } from './components/servicio-form/servicio-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ClienteListComponent,
     ClienteDetailComponent,
-    ClienteFormComponent
+    ClienteFormComponent,
+    ServicioListComponent,
+    ServicioFormComponent
   ],
   imports: [
     BrowserModule,

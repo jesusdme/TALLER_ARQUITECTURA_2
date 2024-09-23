@@ -3,5 +3,7 @@
     <p>Nombre: {{ cliente.nombre }}</p>
     <p>Placa Vehículo: {{ cliente.placaVehiculo }}</p>
     <p>Color Vehículo: {{ cliente.colorVehiculo }}</p>
+    <p>Hora de Ingreso: {{ cliente.horaIngreso ? (cliente.horaIngreso | date:'short') : 'No disponible' }}</p>
+
     <button (click)="deleteCliente()">Eliminar</button>
 </div>

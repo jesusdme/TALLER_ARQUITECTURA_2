@@ -12,7 +12,8 @@ export class ClienteFormComponent implements OnInit {
   cliente: Cliente = {
     nombre: '',
     placaVehiculo: '',
-    colorVehiculo: ''
+    colorVehiculo: '',
+    horaIngreso: '', // Puedes establecerlo como `undefined` ya que será generado en el backend
   };
   isEditMode = false;
 
@@ -20,7 +21,7 @@ export class ClienteFormComponent implements OnInit {
     private clienteService: ClienteService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

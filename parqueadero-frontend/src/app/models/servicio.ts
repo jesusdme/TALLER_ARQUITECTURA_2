@@ -1,7 +1,7 @@
 export interface Servicio {
-    id?: string;          // El ID puede ser opcional
+    id?: string;
     clienteId: string;
-    horaEntrada: string;
-    horaSalida: string;
-    espacioAsignado: string;
+    hora: string;
+    accion: string;
+    cobro: number;
 }

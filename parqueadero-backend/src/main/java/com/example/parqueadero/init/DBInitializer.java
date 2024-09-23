@@ -1,5 +1,7 @@
 package com.example.parqueadero.init;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -27,11 +29,13 @@ public class DBInitializer implements CommandLineRunner {
             cliente1.setNombre("Juan Pérez");
             cliente1.setPlacaVehiculo("XYZ123");
             cliente1.setColorVehiculo("Rojo");
+            cliente1.setHoraIngreso(LocalDateTime.now());  // Hora de ingreso actual
 
             Cliente cliente2 = new Cliente();
             cliente2.setNombre("Maria López");
             cliente2.setPlacaVehiculo("ABC456");
             cliente2.setColorVehiculo("Azul");
+            cliente2.setHoraIngreso(LocalDateTime.now().minusHours(1));  // Hora de ingreso hace 1 hora
 
             // Guardar clientes en la base de datos
             clienteRepository.save(cliente1);
@@ -40,15 +44,15 @@ public class DBInitializer implements CommandLineRunner {
             // Crear servicios de prueba
             Servicio servicio1 = new Servicio();
             servicio1.setClienteId(cliente1.getId());
-            servicio1.setHoraEntrada("10:00");
-            servicio1.setHoraSalida("12:00");
-            servicio1.setEspacioAsignado("A1");
+            servicio1.setHora(LocalDateTime.now());
+            servicio1.setAccion("Entrada");
+            servicio1.setCobro(0.0);  // Inicialmente sin cobro
 
             Servicio servicio2 = new Servicio();
             servicio2.setClienteId(cliente2.getId());
-            servicio2.setHoraEntrada("11:00");
-            servicio2.setHoraSalida("13:00");
-            servicio2.setEspacioAsignado("B2");
+            servicio2.setHora(LocalDateTime.now());
+            servicio2.setAccion("Entrada");
+            servicio2.setCobro(0.0);  // Inicialmente sin cobro
 
             // Guardar servicios en la base de datos
             servicioRepository.save(servicio1);
