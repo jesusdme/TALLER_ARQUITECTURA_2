@@ -1,6 +1,7 @@
 package com.example.parqueadero.init;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +28,9 @@ public class DBInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        // Definir la zona horaria de Colombia
+        ZoneId colombiaZone = ZoneId.of("America/Bogota");
+
         // Verificar si ya hay parqueaderos en la base de datos para evitar duplicados
         if (parqueaderoRepository.count() == 0) {
             // Crear un parqueadero de prueba
@@ -42,13 +46,15 @@ public class DBInitializer implements CommandLineRunner {
                 cliente1.setNombre("Juan Pérez");
                 cliente1.setPlacaVehiculo("XYZ123");
                 cliente1.setColorVehiculo("Rojo");
-                cliente1.setHoraIngreso(LocalDateTime.now());  // Hora de ingreso actual
+                // Establecer la hora de ingreso con la zona horaria de Colombia
+                cliente1.setHoraIngreso(ZonedDateTime.now(colombiaZone).toLocalDateTime());
 
                 Cliente cliente2 = new Cliente();
                 cliente2.setNombre("Maria López");
                 cliente2.setPlacaVehiculo("ABC456");
                 cliente2.setColorVehiculo("Azul");
-                cliente2.setHoraIngreso(LocalDateTime.now().minusHours(1));  // Hora de ingreso hace 1 hora
+                // Hora de ingreso hace 1 hora en la zona horaria de Colombia
+                cliente2.setHoraIngreso(ZonedDateTime.now(colombiaZone).minusHours(1).toLocalDateTime());
 
                 // Guardar clientes en la base de datos
                 clienteRepository.save(cliente1);
@@ -57,13 +63,14 @@ public class DBInitializer implements CommandLineRunner {
                 // Crear servicios de prueba
                 Servicio servicio1 = new Servicio();
                 servicio1.setClienteId(cliente1.getId());
-                servicio1.setHora(LocalDateTime.now());
+                servicio1.setHora(ZonedDateTime.now(colombiaZone).toLocalDateTime());
                 servicio1.setAccion("Entrada");
                 servicio1.setCobro(0.0);  // Inicialmente sin cobro
 
                 Servicio servicio2 = new Servicio();
                 servicio2.setClienteId(cliente2.getId());
-                servicio2.setHora(LocalDateTime.now());
+                // Hora de ingreso hace 1 hora en la zona horaria de Colombia
+                servicio2.setHora(ZonedDateTime.now(colombiaZone).minusHours(1).toLocalDateTime());
                 servicio2.setAccion("Entrada");
                 servicio2.setCobro(0.0);  // Inicialmente sin cobro
 

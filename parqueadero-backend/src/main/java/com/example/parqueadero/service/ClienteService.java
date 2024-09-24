@@ -3,6 +3,8 @@ package com.example.parqueadero.service;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,13 +49,19 @@ public class ClienteService {
             parqueaderoRepository.save(parqueadero);
 
             // Establecer la hora de ingreso
-            cliente.setHoraIngreso(LocalDateTime.now());
+
+            ZoneId colombiaZone = ZoneId.of("America/Bogota");
+
+            // Establecer la hora de ingreso en la zona horaria de Colombia
+            LocalDateTime horaIngreso = ZonedDateTime.now(colombiaZone).toLocalDateTime();
+            cliente.setHoraIngreso(horaIngreso);
+            
             Cliente clienteGuardado = clienteRepository.save(cliente);
 
             // Crear un registro de servicio con la acción "Entrada"
             Servicio servicio = new Servicio();
             servicio.setClienteId(clienteGuardado.getId());
-            servicio.setHora(LocalDateTime.now());
+            servicio.setHora(horaIngreso);
             servicio.setAccion("Entrada");
             servicio.setCobro(0.0); // Inicialmente sin cobro
             servicioRepository.save(servicio);
@@ -88,11 +96,16 @@ public class ClienteService {
             if (cliente != null) {
                 Servicio servicio = new Servicio();
                 servicio.setClienteId(cliente.getId());
-                servicio.setHora(LocalDateTime.now());
+                ZoneId colombiaZone = ZoneId.of("America/Bogota");
+
+                // Establecer la hora de ingreso en la zona horaria de Colombia
+                LocalDateTime horaSalida = ZonedDateTime.now(colombiaZone).toLocalDateTime();
+
+                servicio.setHora(horaSalida);
                 servicio.setAccion("Salida");
 
                 // Calcular la duración de la estancia
-                Duration duration = Duration.between(cliente.getHoraIngreso(), LocalDateTime.now());
+                Duration duration = Duration.between(cliente.getHoraIngreso(), horaSalida);
                 double cobro = new BigDecimal(167 * duration.toMinutes()).doubleValue();
                 servicio.setCobro(cobro);
 
