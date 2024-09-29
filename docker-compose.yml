@@ -1,0 +1,24 @@
+services:
+  backend:
+    build: ./parqueadero-backend
+    container_name: springboot-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb+srv://luisitafernanda2003:Vnk1XxKwSvUTdk0Q@cluster1.o2ery.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1
+    networks:
+      - app-network
+
+  frontend:
+    build: ./parqueadero-frontend
+    container_name: angular-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
