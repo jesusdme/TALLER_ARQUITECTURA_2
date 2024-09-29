@@ -1,3 +1,4 @@
+
 # Parqueadero Management System
  
 ## Descripción
@@ -39,100 +40,17 @@ Este proyecto es una aplicación web de gestión de parqueaderos, donde los usua
 ### Backend
  
 El backend está construido utilizando Spring Boot y expone una API REST para manejar la lógica de negocio, las capas de servicio y las operaciones con MongoDB.
- 
-```bash
 
-parqueadero-backend/
+![WhatsApp Image 2024-09-28 at 23 00 08](https://github.com/user-attachments/assets/010494f5-5a1a-4a85-b44b-e4a23a9e7d96)
 
-├── controller/
-
-│   ├── ClienteController.java
-
-│   ├── ParqueaderoController.java
-
-│   └── ServicioController.java
-
-├── init/
-
-│   └── DBInitializer.java
-
-├── model/
-
-│   ├── Cliente.java
-
-│   ├── Parqueadero.java
-
-│   └── Servicio.java
-
-├── repository/
-
-│   ├── ClienteRepository.java
-
-│   ├── ParqueaderoRepository.java
-
-│   └── ServicioRepository.java
-
-├── service/
-
-│   ├── ClienteService.java
-
-│   ├── ParqueaderoService.java
-
-│   └── ServicioService.java
-
-└── resources/
-
-    └── application.properties
-
-```
  
 ### Frontend
  
 El frontend es una aplicación Angular que consume la API REST proporcionada por el backend.
+
  
-```bash
+![WhatsApp Image 2024-09-28 at 22 58 43](https://github.com/user-attachments/assets/7796e5d0-fb53-4e9a-8682-9d23b97197f9)
 
-parqueadero-frontend/
-
-├── src/
-
-│   ├── app/
-
-│   │   ├── components/
-
-│   │   │   ├── cliente-detail/
-
-│   │   │   ├── cliente-form/
-
-│   │   │   ├── cliente-list/
-
-│   │   │   ├── servicio-form/
-
-│   │   │   └── servicio-list/
-
-│   │   ├── models/
-
-│   │   │   ├── cliente.ts
-
-│   │   │   ├── parqueadero.ts
-
-│   │   │   └── servicio.ts
-
-│   │   ├── services/
-
-│   │   │   ├── cliente.service.ts
-
-│   │   │   ├── parqueadero.service.ts
-
-│   │   │   └── servicio.service.ts
-
-│   │   ├── app-routing.module.ts
-
-│   │   ├── app.component.ts
-
-│   │   └── app.module.ts
-
-```
  
 ### Descripción del uso de Axios
  
