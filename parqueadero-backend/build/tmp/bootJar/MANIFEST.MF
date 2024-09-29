@@ -9,4 +9,3 @@ Spring-Boot-Layers-Index: BOOT-INF/layers.idx
 Build-Jdk-Spec: 17
 Implementation-Title: parqueadero
 Implementation-Version: 0.0.1-SNAPSHOT
-
